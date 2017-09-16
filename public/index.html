@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Remove cubes</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet"> 
+<script src="js/jquery-3.2.1.js"></script>
+<script src="public/statistics.js"></script>
+</head>
+
+<body>
+<header>
+  <h1 align="center"><strong>REMOVE CUBES</strong></h1>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-lg-5">
+      <button type="button" class="btn btn-primary btn-lg" onClick="onTimer(); fillCells(); onClickCell()" id="newGame">New Game</button>
+      <button type="button" class="btn btn-default btn-lg" onClick="pause()" id="pause">Pause</button>
+      <button type="button" class="btn btn-default btn-lg" onClick="resume()" id="resume">Resume</button>
+    </div>
+    <div class="col-md-4 col-lg-4"> <span class="label label-info" id="pointsInfo">Points</span>
+      <input type="number" id="points" readonly>
+      <span class="label label-info" id="time">Time left</span>
+      <label id="minutes">00</label>
+      :
+      <label id="seconds">02</label>
+      <script>
+		  
+		var go = true;
+		var timeOut = false;
+		  
+		//Run countdown timer(1 minute) 
+		function onTimer(){
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 2;
+        var time=setInterval(setTime, 1000); 
+		
+	    //Disable button "New Game" during the game
+		document.getElementById("newGame").disabled = true;
+			
+		/*Counts down the seconds until the end of the game. 
+		 As soon as the time runs out, a pop-up window appears, 
+		 indicating the score for the game.*/
+        function setTime() {
+			if(go){
+			--totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds%60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+			if (totalSeconds == 0){
+				clearTimeout(time);
+				timeOut  = true;
+				
+				/*Take points from the field points and insert them 
+		         into the field score that shows the final result.*/
+				document.getElementById("scoreTxt").value = document.getElementById("points").value;
+				
+				//Cells are cleaned 
+				$('TD').css('backgroundColor','rgba(0, 0, 0, 0)');
+				document.getElementById("points").value = 0;
+				
+				//Disable button "New Game" while on the screen there is a window of results
+				document.getElementById("newGame").disabled = true;
+				
+				//Clear username text field
+				document.getElementById("username").value ="";
+				
+				//Modal window opens
+				var modal = document.getElementById("modalWindow");
+				modal.style.display="block";
+				document.getElementById("username").focus();
+				}
+            }
+		}
+			
+       //Display time on labels 
+        function pad(val) {
+            var valString = val + "";
+            if(valString.length < 2)
+            {
+				 return "0" + valString;
+            }else {
+				return valString;
+            }
+          }  
+		}
+		  
+		  //Pause timer using global boolean variable
+		 function pause() {
+			go = false;
+		}
+		  
+		//Resume timer using global boolean variable
+		function resume() {
+			go = true;
+		}
+    </script> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-lg-8" id="board"> 
+      <script>
+		//Create table on the web-page
+		function addTable() {
+			var myTableDiv = document.getElementById("board");
+			var table = document.createElement("TABLE");
+			table.border = '1';
+			var rows = 9;
+			var cols = 11;
+			var tableBody = document.createElement('TBODY');
+			
+			table.appendChild(tableBody);
+
+			for (var i = 0; i < rows; i++) {
+				var tr = document.createElement('TR');
+				tableBody.appendChild(tr);
+
+				for (var j = 0; j < cols; j++) {
+					var td = document.createElement('TD');
+					td.width = '67';
+					td.height='67';
+		
+					tr.appendChild(td);
+				}
+			}
+			myTableDiv.appendChild(table);
+		}
+		  
+		  addTable();
+		  
+		  /*Filling random cells (from 1 to 3 cells) with random colors 
+		  from the array colors*/
+		  function fillCells() {
+		   var cells = document.getElementsByTagName('TD'),
+           colors = ['FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF'];
+			
+			var numbCells = Math.floor(Math.random()*(4-1)+1); 
+			  
+            for(var i = 0; i < numbCells; i++) {
+			var index = Math.floor(Math.random() * (99 - 0) + 0);
+			cells[index].style.backgroundColor = '#' +colors[Math.floor(Math.random() * colors.length)];
+            }
+		  }
+		  
+		  /*Event that occurs when you click on a cell.
+		  If a user clicks on a colored cell, he gets 1 point*/
+		  function onClickCell() {
+			  var points = document.getElementById("points");
+			  var i = 0;
+			  points.value = i;
+			  
+			  $('TD').click(function() {
+			  if (!timeOut) {  
+				  /*For Google Chrome and Opera the colors of the cells 
+				  are returned as colors rgb but in Mozilla Firefox an empty cells 
+				  are designated as a transparent */
+			    if ($(this).css('backgroundColor') != 'rgba(0, 0, 0, 0)' && $(this).css('backgroundColor') != 'transparent'){
+				  ++i;
+				  points.value = i;
+				  $(this).css('backgroundColor','rgba(0, 0, 0, 0)');
+				  fillCells();
+				  } 
+			  }else {
+			     i = 0;
+			     timeOut = false;
+			  }
+		  })}
+		</script> 
+    </div>
+    <div class="col-md-4 col-lg-4">
+      <textarea id="results" name="results" cols="35" rows="24" readonly>Result Table</textarea>
+    </div>
+  </div>
+</div>
+<div id="modalWindow" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 align="center">Your Result</h2>
+      <hr width="100%">
+    </div>
+    <div class="modal-body">
+      <label id="score">Score:</label>
+      <input type="number" id="scoreTxt" readonly>
+      <br>
+      <label id="userN">Name:</label>
+      <input type="text" id="username">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" id="save">SAVE</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

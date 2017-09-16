@@ -1,0 +1,141 @@
+/* CSS Document */
+header {
+	margin-top: 1%;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace
+}
+body {
+	background: linear-gradient(#E8E8E8, transparent 1px), linear-gradient( 90deg, #E8E8E8, transparent 1px);
+	background-size: 25px 25px;
+	background-position: center center;
+	resize: none;
+}
+.container {
+	margin-top: 2%;
+}
+#resume, #pause{
+	width: 110px;
+	margin-left: 5%;
+	text-align: center;
+	outline: none;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	border-radius: 15px;
+	background: #E9C046;
+}
+#resume:hover {
+	background: #D5A71D
+}
+#resume:active {
+	background: #DCAA2D
+}
+#pause:hover {
+	background: #D5A71D
+}
+#pause:active {
+	background: #DCAA2D
+}
+
+#newGame {
+	width: 150px;
+	border-radius: 15px;
+	text-align: center;
+	outline: none;
+	background: #2CC951;
+	border-width: 1px;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+}
+#newGame:hover {
+	background: #38AF4A;
+}
+#newGame:active {
+	background: #15A81D;
+}
+
+#pointsInfo, #time {
+	font-size: 120%;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	height: 25px;
+	background: #89C98A
+}
+#points {
+	width: 52px;
+	height: 40px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 150%;
+}
+#time{
+	margin-left: 5%;
+}
+
+#minutes, #seconds{
+	font-size: 150%;
+}
+
+#board{
+	margin-top: 1%;
+}
+
+#results {
+	text-align: center;
+	font-size: 130%;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	resize: none;
+	outline: none;
+	border-radius: 10px;
+	margin-top: 2%;
+}
+
+.modal{
+	position: absolute;
+	width: 30%;
+	height: 50%;
+	top: 20%;
+	left: 30%;
+	border-width: 2px;
+	font:Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	text-align: center;
+}
+.modal-header{
+	background:#A7E5C5;
+}
+.modal-body{
+	font-size: 120%;
+	background: #A7E5C5;
+}
+#score {
+	vertical-align: middle;
+}
+#userN{
+	margin-top: 1%;
+	vertical-align: middle;
+}
+#scoreTxt {
+	vertical-align: middle;
+	text-align: center;
+	width: 100px;
+}
+#username{
+	margin-top: 1%;
+	vertical-align: middle;
+	text-align: center;
+	width: 200px;
+}
+.modal-footer{
+	background: #A7E5C5;
+	text-align: center;
+}
+#save{
+	width: 150px;
+	height: 40px;
+	border-radius: 15px;
+	text-align: center;
+	outline: none;
+	font: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	background: #2CC951;
+}
+#save:hover{
+	background: #38AF4A;
+}
+#save:active {
+	background: #15A81D;
+}
