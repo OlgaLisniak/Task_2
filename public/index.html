@@ -23,9 +23,9 @@
     <div class="col-md-4 col-lg-4"> <span class="label label-info" id="pointsInfo">Points</span>
       <input type="number" id="points" readonly>
       <span class="label label-info" id="time">Time left</span>
-      <label id="minutes">00</label>
+      <label id="minutes">01</label>
       :
-      <label id="seconds">02</label>
+      <label id="seconds">00</label>
       <script>
 		  
 		var go = true;
@@ -35,7 +35,7 @@
 		function onTimer(){
         var minutesLabel = document.getElementById("minutes");
         var secondsLabel = document.getElementById("seconds");
-        var totalSeconds = 2;
+        var totalSeconds = 60;
         var time=setInterval(setTime, 1000); 
 		
 	    //Disable button "New Game" during the game
